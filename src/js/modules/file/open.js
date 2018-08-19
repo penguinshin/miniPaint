@@ -9,9 +9,9 @@ import EXIF from './../../../../node_modules/exif-js/exif.js';
 
 var instance = null;
 
-/** 
+/**
  * manages files / open
- * 
+ *
  * @author ViliusL
  */
 class File_open_class {
@@ -79,23 +79,23 @@ class File_open_class {
 		//force click
 		document.querySelector('#file_open').click();
 	}
-	
+
 	open_webcam(){
 		var _this = this;
 		var video = document.createElement('video');
 		video.autoplay = true;
 		video.style.maxWidth = '100%';
 		var track = null;
-		
-		function handleSuccess(stream) {	
+
+		function handleSuccess(stream) {
 			track = stream.getTracks()[0];
-			video.srcObject = stream;	
+			video.srcObject = stream;
 		}
 
 		function handleError(error) {
 			alertify.error('Sorry, cold not load getUserMedia() data: ' + error);
 		}
-		
+
 		var settings = {
 			title: 'Webcam',
 			params: [
@@ -108,13 +108,13 @@ class File_open_class {
 				//capture data
 				var width = video.videoWidth;
 				var height = video.videoHeight;
-				
+
 				var tmpCanvas = document.createElement('canvas');
 				var tmpCanvasCtx = tmpCanvas.getContext("2d");
 				tmpCanvas.width = width;
 				tmpCanvas.height = height;
 				tmpCanvasCtx.drawImage(video, 0, 0);
-				
+
 				//create requested layer
 				var new_layer = {
 					name: "Webcam #" + _this.Base_layers.auto_increment,
@@ -127,7 +127,7 @@ class File_open_class {
 				};
 				this.Base_layers.insert(new_layer);
 				_this.Base_layers.autoresize(width, height);
-				
+
 				//destroy
 				track.stop();
 				video.pause();
@@ -142,7 +142,7 @@ class File_open_class {
 			},
 		};
 		this.POP.show(settings);
-		
+
 		navigator.mediaDevices.getUserMedia({audio: false, video: true})
 			.then(handleSuccess)
 			.catch(handleError);
@@ -167,7 +167,7 @@ class File_open_class {
 
 	/**
 	 * opens data URLs, like: "data:image/png;base64,xxxxxx"
-	 * 
+	 *
 	 * data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAG0lEQVQYV2N89+7df0FBQQbG/////3///j0DAF9wCsg9spQfAAAAAElFTkSuQmCC
 	 */
 	open_data_url() {
@@ -295,10 +295,10 @@ class File_open_class {
 				FR.readAsDataURL(f);
 		}
 	}
-	
+
 	open_template_test(){
 		var _this = this;
-		
+
 		window.fetch("images/test-collection.json").then(function(response) {
 			return response.json();
 		}).then(function(json) {
@@ -332,7 +332,7 @@ class File_open_class {
 		var layer_name = url.replace(/^.*[\\\/]/, '');
 
 		var img = new Image();
-		img.crossOrigin = "Anonymous";
+		// img.crossOrigin = "Anonymous";
 		img.onload = function () {
 			var new_layer = {
 				name: layer_name,

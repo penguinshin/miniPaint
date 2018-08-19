@@ -72,34 +72,38 @@ class Pencil_class extends Base_tools_class {
 
 		window.State.save();
 
-		var params_hash = this.get_params_hash();
-		var params = this.getParams();
-		var opacity = 100;
-		if (params.antialiasing == false)
-			opacity = Math.round(config.ALPHA / 255 * 100);
-		
-		if (config.layer.type != this.name || params_hash != this.params_hash) {
-			//register new object - current layer is not ours or params changed
-			this.layer = {
-				type: this.name,
-				data: [],
-				opacity: opacity,
-				params: this.clone(this.getParams()),
-				status: 'draft',
-				render_function: [this.name, 'render'],
-				width: null,
-				height: null,
-				rotate: null,
-				is_vector: true,
-			};
-			this.Base_layers.insert(this.layer);
-			this.params_hash = params_hash;
-		}
-		else {
-			//continue adding layer data, just register break
-			config.layer.data.push(null);
-		}
+		this.createLayerIfNeeded();
 	}
+
+	createLayerIfNeeded() {
+    var params_hash = this.get_params_hash();
+    var params = this.getParams();
+    var opacity = 100;
+    if (params.antialiasing == false)
+      opacity = Math.round(config.ALPHA / 255 * 100);
+
+    if (config.layer.type != this.name || params_hash != this.params_hash) {
+      //register new object - current layer is not ours or params changed
+      this.layer = {
+        type: this.name,
+        data: [],
+        opacity: opacity,
+        params: this.clone(this.getParams()),
+        status: 'draft',
+        render_function: [this.name, 'render'],
+        width: null,
+        height: null,
+        rotate: null,
+        is_vector: true,
+      };
+      this.Base_layers.insert(this.layer);
+      this.params_hash = params_hash;
+    }
+    else {
+      //continue adding layer data, just register break
+      config.layer.data.push(null);
+    }
+  }
 
 	mousemove(e) {
 		var mouse = this.get_mouse_info(e);
@@ -157,7 +161,7 @@ class Pencil_class extends Base_tools_class {
 		else
 			this.render_aliased(ctx, layer);
 	}
-	
+
 	/**
 	 * draw with antialiasing, nice mode
 	 *

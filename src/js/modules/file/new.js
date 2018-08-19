@@ -4,9 +4,9 @@ import Base_layers_class from './../../core/base-layers.js';
 import Helper_class from './../../libs/helpers.js';
 import Dialog_class from './../../libs/popup.js';
 
-/** 
+/**
  * manages files / new
- * 
+ *
  * @author ViliusL
  */
 class File_new_class {

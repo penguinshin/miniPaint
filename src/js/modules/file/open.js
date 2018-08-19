@@ -332,7 +332,7 @@ class File_open_class {
 		var layer_name = url.replace(/^.*[\\\/]/, '');
 
 		var img = new Image();
-		// img.crossOrigin = "Anonymous";
+		img.crossOrigin = "Anonymous";
 		img.onload = function () {
 			var new_layer = {
 				name: layer_name,

@@ -557,14 +557,12 @@ class Base_layers_class {
 	 *
 	 * @param {int} id
 	 */
-	toggle_visibility(id) {
+	toggle_visibility(id, visible = null) {
 		id = parseInt(id);
 		var link = this.get_layer(id);
 
-		if (link.visible == false)
-			link.visible = true;
-		else
-			link.visible = false;
+		visible = visible || !link.visible;
+		link.visible = visible;
 
 		this.render();
 		this.Base_gui.GUI_layers.render_layers();

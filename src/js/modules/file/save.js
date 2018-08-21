@@ -9,9 +9,9 @@ import GIF from './../../libs/gifjs/gif.js';
 
 var instance = null;
 
-/** 
+/**
  * manages files / save
- * 
+ *
  * @author ViliusL
  */
 class File_save_class {
@@ -221,7 +221,7 @@ class File_save_class {
 				this.Base_layers.convert_layers_to_canvas(ctx);
 			}
 		}
-		
+
 		if (type != 'JSON' && (type == 'JPG' || config.TRANSPARENCY == false)) {
 			//add white background
 			ctx.globalCompositeOperation = 'destination-over';
@@ -286,7 +286,7 @@ class File_save_class {
 	save_action(user_response) {
 		var fname = user_response.name;
 		var only_one_layer = null;
-		if (user_response.layers == 'All')
+		if (user_response.layers == 'All' || user_response.layerColor)
 			only_one_layer = false;
 		else
 			only_one_layer = true;
@@ -333,8 +333,11 @@ class File_save_class {
 			canvas.height = config.HEIGHT;
 			this.disable_canvas_smooth(ctx);
 
+			console.log(!!user_response.layerColor);
+
 			//ask data
 			if (only_one_layer == true && type != 'GIF' && config.layer.type != null) {
+			  console.log('only one layer')
 				//only current layer !!!
 				var layer = config.layer;
 
@@ -359,11 +362,16 @@ class File_save_class {
 					layer.y = initial_y;
 				}
 			}
-			else {
-				this.Base_layers.convert_layers_to_canvas(ctx);
-			}
+			else if (!!user_response.layerColor) {
+			  // console.info('in save')
+			  // console.log(user_response.layerColor);
+				this.Base_layers.convert_layers_of_color_to_canvas(ctx, user_response.layerColor);
+			} else {
+			  console.log('regular save');
+        this.Base_layers.convert_layers_to_canvas(ctx);
+      }
 		}
-		
+
 		if (type != 'JSON' && (type == 'JPG' || config.TRANSPARENCY == false)) {
 			//add white background
 			ctx.globalCompositeOperation = 'destination-over';
@@ -392,9 +400,11 @@ class File_save_class {
 			if (this.Helper.strpos(fname, '.jpg') == false)
 				fname = fname + ".jpg";
 
-			canvas.toBlob(function (blob) {
-				filesaver.saveAs(blob, fname);
-			}, "image/jpeg", quality);
+			const saveHandler = user_response.saveHandler || function (blob) {
+			  filesaver.saveAs(blob, fname);
+      }
+
+			canvas.toBlob(saveHandler, "image/jpeg", quality);
 		}
 		else if (type == 'WEBP') {
 			//WEBP - new format for chrome only

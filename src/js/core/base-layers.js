@@ -801,6 +801,34 @@ class Base_layers_class {
 			this.render_object(ctx, value);
 		}
 	}
+
+  /**
+   * exports all layers of a particular color to canvas for saving
+   *
+   * @param {canvas.context} ctx
+   * @param {int} layer_id Optional
+   */
+  convert_layers_of_color_to_canvas(ctx, color) {
+    var layers = config.layers;
+    // console.log(`layers is length ${config.layers.length}`);
+    for (var i = layers.length - 1; i >= 0; i--) {
+      var value = layers[i];
+
+      // console.log(value);
+
+      if (value.color !== color || !value.is_vector)
+        continue;
+
+      // console.log('rendering layer');
+      // console.log(value);
+
+      ctx.globalAlpha = value.opacity / 100;
+      ctx.globalCompositeOperation = value.composition;
+
+      this.render_object(ctx, value);
+    }
+  }
+
 	/**
 	 * exports (active) layer to canvas for saving
 	 *

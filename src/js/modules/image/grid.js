@@ -2,6 +2,10 @@ import config from './../../config.js';
 import Dialog_class from './../../libs/popup.js';
 import Base_gui_class from './../../core/base-gui.js';
 
+export function resetImageGridInstance() {
+  instance = null;
+}
+
 var instance = null;
 
 class Image_grid_class {

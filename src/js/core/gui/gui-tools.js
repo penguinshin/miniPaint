@@ -8,6 +8,10 @@ import Helper_class from './../../libs/helpers.js';
 import Help_translate_class from './../../modules/help/translate.js';
 import alertify from './../../../../node_modules/alertifyjs/build/alertify.min.js';
 
+export function resetToolsInstance() {
+  GUI_tools_class.instance = null;
+}
+
 var instance = null;
 
 /**
@@ -17,10 +21,10 @@ class GUI_tools_class {
 
 	constructor(GUI_class) {
 		//singleton
-		if (instance) {
-			return instance;
+		if (GUI_tools_class.instance) {
+			return GUI_tools_class.instance;
 		}
-		instance = this;
+    GUI_tools_class.instance = this;
 
 		this.Helper = new Helper_class();
 		this.Help_translate = new Help_translate_class();
@@ -139,7 +143,7 @@ class GUI_tools_class {
 	}
 
 	/**
-	 * used strings: 
+	 * used strings:
 	 * "Fill", "Square", "Circle", "Radial", "Anti aliasing", "Circle", "Strict", "Burn"
 	 */
 	show_action_attributes() {

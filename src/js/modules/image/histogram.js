@@ -3,6 +3,10 @@ import Base_layers_class from './../../core/base-layers.js';
 import Dialog_class from './../../libs/popup.js';
 import Helper_class from './../../libs/helpers.js';
 
+export function resetImageHistogramInstance() {
+  instance = null;
+}
+
 var instance = null;
 
 class Image_histogram_class {

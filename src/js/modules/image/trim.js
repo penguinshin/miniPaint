@@ -5,6 +5,10 @@ import Dialog_class from './../../libs/popup.js';
 import Helper_class from './../../libs/helpers.js';
 import alertify from './../../../../node_modules/alertifyjs/build/alertify.min.js';
 
+export function resetTrimInstance() {
+  instance = null;
+}
+
 var instance = null;
 
 class Image_trim_class {
@@ -20,7 +24,7 @@ class Image_trim_class {
 		this.Base_gui = new Base_gui_class();
 		this.Helper = new Helper_class();
 		this.Dialog = new Dialog_class();
-				
+
 		this.set_events();
 	}
 
@@ -39,10 +43,10 @@ class Image_trim_class {
 			}
 		}, false);
 	}
-	
+
 	trim(){
 		var _this = this;
-		
+
 		var removeWhiteColor = false;
 		if(config.TRANSPARENCY == false)
 			removeWhiteColor = true;
@@ -65,18 +69,18 @@ class Image_trim_class {
 		};
 		this.Dialog.show(settings);
 	}
-	
+
 	trim_layer(layer_id, removeWhiteColor = false){
 		var layer = this.Base_layers.get_layer(layer_id);
-		
+
 		if (config.layer.type != 'image') {
 			alertify.error('Skip - layer must be image.');
 			return false;
 		}
-		
+
 		var trim = this.get_trim_info(layer_id, removeWhiteColor);
 		trim = trim.relative;
-		
+
 		if(layer.type == 'image'){
 			//if image was streched
 			var width_ratio = (layer.width / layer.width_original);
@@ -102,10 +106,10 @@ class Image_trim_class {
 			layer.width_original = canvas.width;
 			layer.height_original = canvas.height;
 		}
-		
+
 		config.need_render = true;
 	}
-	
+
 	trim_all(removeWhiteColor = false) {
 		var all_top = config.HEIGHT;
 		var all_left = config.WIDTH;
@@ -122,7 +126,7 @@ class Image_trim_class {
 		//collect info
 		for (var i = 0; i < config.layers.length; i++) {
 			var layer = config.layers[i];
-			
+
 			if(layer.width == null || layer.height == null || layer.x == null || layer.y == null){
 				//layer without dimensions
 				var trim_info = this.get_trim_info(layer.id, removeWhiteColor);
@@ -145,7 +149,7 @@ class Image_trim_class {
 			var layer = config.layers[i];
 			if (layer.x == null || layer.y == null || layer.type == null)
 				continue;
-			
+
 			layer.x = layer.x - all_left;
 			layer.y = layer.y - all_top;
 		}
@@ -161,10 +165,10 @@ class Image_trim_class {
 		this.Base_gui.prepare_canvas();
 		config.need_render = true;
 	}
-	
+
 	/**
 	 * get painted area coords
-	 * 
+	 *
 	 * @param {int} layer_id
 	 * @param {boolean} trim_white
 	 * @returns {object} keys: top, left, botom, right, width, height, relative
@@ -195,7 +199,7 @@ class Image_trim_class {
 			for (var x = 0; x < img.width; x++) {
 				var k = ((y * (img.width * 4)) + (x * 4));
 				if (imgData[k + 3] == 0)
-					continue; //transparent 
+					continue; //transparent
 				if (trim_white == true && imgData[k] == 255 && imgData[k + 1] == 255 && imgData[k + 2] == 255)
 					continue; //white
 				break main1;
@@ -208,7 +212,7 @@ class Image_trim_class {
 			for (var y = 0; y < img.height; y++) {
 				var k = ((y * (img.width * 4)) + (x * 4));
 				if (imgData[k + 3] == 0)
-					continue; //transparent 
+					continue; //transparent
 				if (trim_white == true && imgData[k] == 255 && imgData[k + 1] == 255 && imgData[k + 2] == 255)
 					continue; //white
 				break main2;
@@ -221,7 +225,7 @@ class Image_trim_class {
 			for (var x = img.width - 1; x >= 0; x--) {
 				var k = ((y * (img.width * 4)) + (x * 4));
 				if (imgData[k + 3] == 0)
-					continue; //transparent 
+					continue; //transparent
 				if (trim_white == true && imgData[k] == 255 && imgData[k + 1] == 255 && imgData[k + 2] == 255)
 					continue; //white
 				break main3;
@@ -234,14 +238,14 @@ class Image_trim_class {
 			for (var y = img.height - 1; y >= 0; y--) {
 				var k = ((y * (img.width * 4)) + (x * 4));
 				if (imgData[k + 3] == 0)
-					continue; //transparent 
+					continue; //transparent
 				if (trim_white == true && imgData[k] == 255 && imgData[k + 1] == 255 && imgData[k + 2] == 255)
 					continue; //white
 				break main4;
 			}
 			right++;
 		}
-		
+
 		var top_rel = top - layer.y;
 		var left_rel = left - layer.x;
 		var bottom_rel = bottom - (config.HEIGHT - layer.y - layer.height);

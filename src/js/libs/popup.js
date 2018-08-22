@@ -1,13 +1,13 @@
 /**
  * user dialogs library
- * 
+ *
  * @author ViliusL
- * 
+ *
  * Usage:
- * 
+ *
  * import Dialog_class from './libs/popup.js';
  * var POP = new popup();
- * 
+ *
  * var settings = {
  *		title: 'Differences',
  *		comment: '',
@@ -23,7 +23,7 @@
  *		on_cancel: function(params){...},
  * };
  * this.POP.show(settings);
- * 
+ *
  * Params types:
  * - name		type				example
  * - ---------------------------------------------------------------
@@ -33,7 +33,7 @@
  * - value		string				'314'
  * - values		array fo strings	['one', 'two', 'three']
  * - range		numbers interval	[0, 255]
- * - step		int/float			1	
+ * - step		int/float			1
  * - placeholder	text			'enter number here'
  * - html		html text			'<b>bold</b>'
  * - function	function			'cutom_function'
@@ -43,6 +43,10 @@ import app_config from './../config.js';
 import Base_layers_class from './../core/base-layers.js';
 import Base_gui_class from './../core/base-gui.js';
 import Help_translate_class from './../modules/help/translate.js';
+
+export function resetPopupInstance() {
+  instance = null;
+}
 
 var instance = null;
 
@@ -97,7 +101,7 @@ class Dialog_class {
 
 	/**
 	 * shows dialog
-	 * 
+	 *
 	 * @param {array} config
 	 */
 	show(config) {
@@ -201,7 +205,7 @@ class Dialog_class {
 
 		this.hide();
 	}
-	
+
 	//"Cancel" pressed
 	cancel() {
 		var params = this.get_params();

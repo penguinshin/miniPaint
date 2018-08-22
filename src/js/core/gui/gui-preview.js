@@ -6,7 +6,11 @@
 import config from './../../config.js';
 import Base_layers_class from './../base-layers.js';
 
-var instance = null;
+export function resetPreviewInstance() {
+  GUI_preview_class.instance = null;
+}
+
+export var instance = null;
 
 var template = `
 	<div class="canvas_preview_wrapper">
@@ -31,10 +35,11 @@ class GUI_preview_class {
 
 	constructor(GUI_class) {
 		//singleton
-		if (instance) {
-			return instance;
+		if (GUI_preview_class.instance) {
+			return GUI_preview_class.instance;
 		}
-		instance = this;
+		console.log('made a new instance of preview');
+    GUI_preview_class.instance = this;
 		document.getElementById('toggle_preview').innerHTML = template;
 
 		// preview mini window size on right sidebar
@@ -304,5 +309,6 @@ class GUI_preview_class {
 	}
 
 }
+
 
 export default GUI_preview_class;

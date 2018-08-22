@@ -3,6 +3,10 @@ import Base_layers_class from './../../core/base-layers.js';
 import Dialog_class from './../../libs/popup.js';
 import alertify from './../../../../node_modules/alertifyjs/build/alertify.min.js';
 
+export function resetAutoAdjustInstance() {
+  instance = null;
+}
+
 var instance = null;
 
 class Image_autoAdjust_class {

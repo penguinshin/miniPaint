@@ -3,6 +3,10 @@ import Helper_class from './../../libs/helpers.js';
 import Translate_class from './../../libs/jquery.translate.js';
 import alertify from './../../../../node_modules/alertifyjs/build/alertify.min.js';
 
+export function resetHelpInstance() {
+  instance = null;
+}
+
 var instance = null;
 
 class Help_translate_class {
@@ -53,7 +57,7 @@ class Help_translate_class {
 			if (key.indexOf('Base' + '/') < 0 && key.indexOf('empty') < 0) {
 				var moduleKey = key.replace('./', '').replace('.json', '');
 				var classObj = modules_context(key);
-				
+
 				for(var i in classObj){
 					if(_this.translations[i] == undefined){
 						_this.translations[i] =	{

@@ -5,6 +5,10 @@ import Base_selection_class from './../core/base-selection.js';
 import GUI_tools_class from './../core/gui/gui-tools.js';
 import alertify from './../../../node_modules/alertifyjs/build/alertify.min.js';
 
+export function resetSelectionInstance() {
+  instance = null;
+}
+
 var instance = null;
 
 class Selection_class extends Base_tools_class {

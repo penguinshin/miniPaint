@@ -5,6 +5,10 @@
 
 import config from './../config.js';
 
+export function resetSelectionInstance() {
+  instance = null;
+}
+
 var instance = null;
 var settings_all = [];
 
@@ -18,7 +22,7 @@ class Base_selection_class {
 	 * - enable_background
 	 * - enable_borders
 	 * - enable_controlls
-	 * 
+	 *
 	 * @param {ctx} ctx
 	 * @param {object} settings
 	 * @param {string} key
@@ -126,7 +130,7 @@ class Base_selection_class {
 		var h = settings.data.height;
 
 		if (x == null || y == null || w == null || h == null) {
-			//not supported 
+			//not supported
 			return;
 		}
 
@@ -150,7 +154,7 @@ class Base_selection_class {
 			x = Math.round(-data.width / 2);
 			y = Math.round(-data.height / 2);
 		}
-		
+
 		var half_fix = 0.5;
 
 		//fill

@@ -1,6 +1,10 @@
 import config from './../../config.js';
 import Base_layers_class from './../../core/base-layers.js';
 
+export function resetDuplicateInstance() {
+  instance = null;
+}
+
 var instance = null;
 
 class Layer_duplicate_class {

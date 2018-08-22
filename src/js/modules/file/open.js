@@ -7,6 +7,10 @@ import Clipboard_class from './../../libs/clipboard.js';
 import alertify from './../../../../node_modules/alertifyjs/build/alertify.min.js';
 import EXIF from './../../../../node_modules/exif-js/exif.js';
 
+export function resetOpenInstance() {
+  instance = null;
+}
+
 var instance = null;
 
 /**

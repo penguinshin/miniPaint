@@ -12,6 +12,10 @@ import zoomView from './../libs/zoomView.js';
 import Helper_class from './../libs/helpers.js';
 import alertify from './../../../node_modules/alertifyjs/build/alertify.min.js';
 
+export function resetLayersInstance() {
+  Base_layers_class.instance = null;
+}
+
 var instance = null;
 
 /**
@@ -44,10 +48,11 @@ class Base_layers_class {
 
 	constructor() {
 		//singleton
-		if (instance) {
-			return instance;
+		if (Base_layers_class.instance) {
+			return Base_layers_class.instance;
 		}
-		instance = this;
+		console.log('new base layers class instance');
+    Base_layers_class.instance = this;
 
 		this.Base_gui = new Base_gui_class();
 		this.Helper = new Helper_class();

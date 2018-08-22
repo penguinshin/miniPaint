@@ -7,6 +7,10 @@ import canvasToBlob from './../../../../node_modules/blueimp-canvas-to-blob/js/c
 import filesaver from './../../../../node_modules/file-saver/FileSaver.min.js';
 import GIF from './../../libs/gifjs/gif.js';
 
+export function resetSaveInstance() {
+  instance = null;
+}
+
 var instance = null;
 
 /**

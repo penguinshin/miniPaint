@@ -15,6 +15,10 @@ import Help_translate_class from './../modules/help/translate.js';
 import Helper_class from './../libs/helpers.js';
 import alertify from './../../../node_modules/alertifyjs/build/alertify.min.js';
 
+export function resetGuiInstance() {
+  Base_gui_class.instance = null;
+}
+
 var instance = null;
 
 /**
@@ -24,10 +28,10 @@ class Base_gui_class {
 
 	constructor() {
 		//singleton
-		if (instance) {
-			return instance;
+		if (Base_gui_class.instance) {
+			return Base_gui_class.instance;
 		}
-		instance = this;
+    Base_gui_class.instance = this;
 
 		this.Helper = new Helper_class();
 
@@ -88,7 +92,7 @@ class Base_gui_class {
 		else {
 			config.TRANSPARENCY = false;
 		}
-		
+
 		//transparency_type
 		var transparency_type = this.Helper.getCookie('transparency_type');
 		if (transparency_type === null) {
@@ -343,10 +347,10 @@ class Base_gui_class {
 			ctx.stroke();
 		}
 	}
-	
+
 	/**
 	 * change draw area size
-	 * 
+	 *
 	 * @param {int} width
 	 * @param {int} height
 	 */
@@ -355,20 +359,20 @@ class Base_gui_class {
 		config.HEIGHT = parseInt(height);
 		this.prepare_canvas();
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @returns {object} keys: width, height
 	 */
 	get_visible_area_size() {
 		var wrapper = document.getElementById('main_wrapper');
 		var page_w = wrapper.clientWidth;
 		var page_h = wrapper.clientHeight;
-		
+
 		//find visible size in pixels, but make sure its correct even if image smaller then screen
 		var w = Math.min(Math.ceil(config.WIDTH * config.ZOOM), Math.ceil(page_w / config.ZOOM));
 		var h = Math.min(Math.ceil(config.HEIGHT * config.ZOOM), Math.ceil(page_h / config.ZOOM));
-		
+
 		return {
 			width: w,
 			height: h,
@@ -377,7 +381,7 @@ class Base_gui_class {
 
 	/**
 	 * change theme or set automatically from cookie if possible
-	 * 
+	 *
 	 * @param {string} theme_name
 	 */
 	change_theme(theme_name){

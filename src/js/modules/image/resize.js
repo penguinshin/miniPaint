@@ -6,6 +6,10 @@ import ImageFilters_class from './../../libs/imagefilters.js';
 import Hermite_class from 'hermite-resize';
 import alertify from './../../../../node_modules/alertifyjs/build/alertify.min.js';
 
+export function resetImageResizeInstance() {
+  instance = null;
+}
+
 var instance = null;
 
 class Image_resize_class {
@@ -29,17 +33,17 @@ class Image_resize_class {
 	set_events() {
 		var _this = this;
 
-		document.addEventListener('keydown', function (event) {
-			var code = event.keyCode;
-			if (event.target.type == 'text' || event.target.tagName == 'INPUT' || event.target.type == 'textarea')
-				return;
-
-			if (code == 82) {
-				//R - resize
-				_this.resize();
-				event.preventDefault();
-			}
-		}, false);
+		// document.addEventListener('keydown', function (event) {
+		// 	var code = event.keyCode;
+		// 	if (event.target.type == 'text' || event.target.tagName == 'INPUT' || event.target.type == 'textarea')
+		// 		return;
+        //
+		// 	if (code == 82) {
+		// 		//R - resize
+		// 		_this.resize();
+		// 		event.preventDefault();
+		// 	}
+		// }, false);
 	}
 
 	resize() {

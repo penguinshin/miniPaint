@@ -6,6 +6,10 @@ import Base_gui_class from './../core/base-gui.js';
 import Base_selection_class from './../core/base-selection.js';
 import alertify from './../../../node_modules/alertifyjs/build/alertify.min.js';
 
+export function resetAnimationInstance() {
+  instance = null;
+}
+
 var instance = null;
 
 class Animation_class extends Base_tools_class {

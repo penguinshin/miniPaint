@@ -146,6 +146,6 @@ label{
 @supports not (zoom:2) {
 	input[type="radio"],  input[type=checkbox]{
 		transform: scale(1.5);
-		margin: 8px;
+		rgin: 8px;
 	}
 }

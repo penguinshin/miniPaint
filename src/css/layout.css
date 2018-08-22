@@ -482,7 +482,7 @@
 
 .main_wrapper{
 	height: calc(100vh - 80px);
-	margin: 5px 210px 5px 45px;
+	margin: 5px 20px 5px 20px;
 	overflow: hidden;
 }
 .canvas_wrapper{

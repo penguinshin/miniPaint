@@ -92,7 +92,7 @@ class File_new_class {
 		else
 			config.TRANSPARENCY = false;
 
-		config.ZOOM = 1;
+		config.zoom = response.initialZoom || 1;
 		config.WIDTH = parseInt(width);
 		config.HEIGHT = parseInt(height);
 		this.Base_gui.prepare_canvas();

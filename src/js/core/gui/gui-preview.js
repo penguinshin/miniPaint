@@ -97,17 +97,17 @@ class GUI_preview_class {
 		document.getElementById('zoom_fit').addEventListener('click', function (e) {
 			_this.zoom_auto();
 		}, false);
-		document.getElementById('main_wrapper').addEventListener('wheel', function (e) {
-			//zoom with mouse scroll
-			e.preventDefault();
-			_this.zoom_data.x = e.offsetX;
-			_this.zoom_data.y = e.offsetY;
-			var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail || -e.deltaY)));
-			if (delta > 0)
-				_this.zoom(+1, e);
-			else
-				_this.zoom(-1, e);
-		}, false);
+		// document.getElementById('main_wrapper').addEventListener('wheel', function (e) {
+		// 	//zoom with mouse scroll
+		// 	e.preventDefault();
+		// 	_this.zoom_data.x = e.offsetX;
+		// 	_this.zoom_data.y = e.offsetY;
+		// 	var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail || -e.deltaY)));
+		// 	if (delta > 0)
+		// 		_this.zoom(+1, e);
+		// 	else
+		// 		_this.zoom(-1, e);
+		// }, false);
 		window.addEventListener('resize', function (e) {
 			//resize
 			config.need_render = true;
@@ -287,22 +287,22 @@ class GUI_preview_class {
 
 		config.need_render = true;
 	}
-	
+
 	/**
 	 * moves visible area to new position.
-	 * 
+	 *
 	 * @param {int} x global offset
 	 * @param {int} y global offset
 	 */
 	zoom_to_position(x, y) {
-		var zoom_data = this.zoom_data;		
+		var zoom_data = this.zoom_data;
 		zoom_data.move_pos = {};
 		zoom_data.move_pos.x = parseInt(x);
 		zoom_data.move_pos.y = parseInt(y);
-		
+
 		config.need_render = true;
 	}
-	
+
 }
 
 export default GUI_preview_class;
